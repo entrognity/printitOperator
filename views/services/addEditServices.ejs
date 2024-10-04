@@ -1,0 +1,69 @@
+<div class="addEditServicesContainer">
+    <h1>Service Prices</h1>
+
+    <!-- Form to select service and enter prices -->
+    <form id="addEditServicesForm" >
+        <label for="serviceDropdown">Select a Service to Add or Edit the Price :</label>
+        <select name="serviceId" id="serviceDropdown" required>
+            <option value="">--Select Service--</option>
+            <% services.forEach(service=> { %>
+                <option value="<%= service.serviceID %>">
+                    <%= service.serviceName %>
+                </option>
+                <% }) %>
+        </select>
+
+        <div id="priceInputs">
+            <div id="div_individualBWPerPage" style="display: none;">
+                <label for="individualBWPerPage">Individual B/W Per Page:</label>
+                <input type="number" name="individualBWPerPage" min="1" id="individualBWPerPage">
+            </div>
+            <div id="div_individualColorPerPage" style="display: none;">
+                <label for="individualColorPerPage">Individual Color Per Page:</label>
+                <input type="number" name="individualColorPerPage" min="1" id="individualColorPerPage">
+            </div>
+            <div id="div_spiralBinding" style="display: none;">
+                <label for="spiralBinding">Spiral Binding Charges:</label>
+                <input type="number" name="spiralBinding" min="1" id="spiralBinding">
+            </div>
+        </div>
+
+        <button class="savePriceButton" type="submit">Save Prices</button>
+    </form>
+
+    <!-- Table displaying service prices -->
+    <h2>Saved Prices</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>Prices</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% prices.forEach(price=> { %>
+                <tr>
+                    <td>Individual B/W Per Page</td>
+                    <td>
+                        <%= price.individualBWPerPage %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Individual Color Page</td>
+                    <td>
+                        <%= price.individualColorPerPage %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Spiral Binding Charges</td>
+                    <td>
+                        <%= price.spiralBinding %>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="/scripts/addEditServicesScript.js"></script>

@@ -1,0 +1,11 @@
+├───controllers
+├───models
+├───public
+│   ├───css
+│   ├───imgs
+│   └───scripts
+├───routes
+└───views
+
+currently the business logic is written in controller layer, 
+but we can add a service layer in future to write the business logic there for more sclability

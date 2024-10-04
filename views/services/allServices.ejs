@@ -1,0 +1,34 @@
+<!-- <div id="allServices" class="content-page">
+    <h1>All Services</h1>
+    <p>Here is a list of all available services.</p>
+</div> -->
+
+<div class="allServicesContainer">
+    <h1>All Available Services</h1>
+
+    <!-- Table to display services -->
+    <table>
+        <thead>
+            <tr>
+                <th>Service ID</th>
+                <th>Service Name</th>
+                <th>Service Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (allServices.length > 0) { %>
+                <% allServices.forEach(service => { %>
+                    <tr>
+                        <td><%= service.serviceID %></td>
+                        <td><%= service.serviceName %></td>
+                        <td><%= service.serviceDescription %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">No services available</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

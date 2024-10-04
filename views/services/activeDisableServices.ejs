@@ -1,0 +1,92 @@
+<!-- <div id="activeServices" class="content-page" >
+    <h1>Active Services</h1>
+    <p>Here is a list of active services.</p>
+</div> -->
+
+
+<div class="activeDisableContainer">
+
+    <!-- Active Services -->
+    <h2>Active Services</h2>
+    <form class="servicesForms" id="disable-services-form">
+        <div class="active-table-container">
+            <table class="services-grid">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Service ID</th>
+                        <th>Service Name</th>
+                        <th>Service Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% activeServices.forEach(service=> { %>
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="service-checkbox" name="servicesToDisable"
+                                    value="<%= service.serviceID %>">
+                            </td>
+                            <td>
+                                <%= service.serviceID %>
+                            </td>
+                            <td>
+                                <%= service.serviceName %>
+                            </td>
+                            <td>
+                                <%= service.serviceDescription %>
+                            </td>
+                            <td>
+                                <span class="status active">Active</span>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="disable-btn">Disable Selected Services</button>
+    </form>
+
+    <!-- Disabled Services -->
+    <h2>Disabled Services</h2>
+    <form class="servicesForms" id="activate-services-form">
+        <div class="disable-table-container">
+            <table class="services-grid">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Service ID</th>
+                        <th>Service Name</th>
+                        <th>Service Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% disabledServices.forEach(service=> { %>
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="service-checkbox" name="servicesToActivate"
+                                    value="<%= service.serviceID %>">
+                            </td>
+                            <td>
+                                <%= service.serviceID %>
+                            </td>
+                            <td>
+                                <%= service.serviceName %>
+                            </td>
+                            <td>
+                                <%= service.serviceDescription %>
+                            </td>
+                            <td>
+                                <span class="status disabled">Disabled</span>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="activate-btn">Activate Selected Services</button>
+    </form>
+</div>
+
+<script src="/scripts/activeDisableServicesScript.js"></script>
