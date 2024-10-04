@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to load the selected page content dynamically
 function loadPage(pageUrl) {
-    fetch(pageUrl)
+    fetch(`/api/v1/services/${pageUrl}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load page content');
