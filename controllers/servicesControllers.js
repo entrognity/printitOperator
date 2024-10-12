@@ -1,5 +1,10 @@
 const path = require('path');
-const { Services, ServicesPrices, ServicesTrackings } = require('../models/servicesModel')
+const { Services, ServicesPrices, ServicesTrackings } = require('../models/servicesModel');
+const { getDate } = require('../utils/dateaAndTime');
+
+const getAllServicesSorted = async (attr) => {
+    return await Services.find().sort(attr);
+};
 
 exports.getServices = async (req, res) => {
     // try {
@@ -18,7 +23,13 @@ exports.getServices = async (req, res) => {
 exports.allServices = async (req, res) => {
     try {
         // Fetch all services from the MongoDB database
-        const allServices = await Services.find();
+        const allServices = await Services.find().sort('serviceID');
+
+        // or
+        // let query = Services.find();
+        // query = query.sort('serviceID');
+        // const allServices = await query;
+
 
         // Pass the fetched services to the 'all-services' EJS template
         res.render('services/allServices', { allServices });
@@ -40,7 +51,7 @@ exports.addEditServices = async (req, res) => {
 
     try {
         // Fetch all services from the MongoDB database
-        const services = await Services.find();
+        const services = await Services.find().sort('serviceID');
         const prices = await ServicesPrices.find();
 
         // Pass the fetched services to the 'all-services' EJS template
@@ -62,7 +73,6 @@ exports.updatePrices = async (req, res) => {
     // }
 
     const prices = req.body;
-    console.log(prices);
 
     try {
         // Prepare the update operation excluding accountID
@@ -140,7 +150,7 @@ exports.activeDisableServices = async (req, res) => {
                     // activeServices: 1 // Keep the active services
                 }
             }
-        ]);
+        ]).sort('serviceID');
 
         const disabledServices = await Services.aggregate([
             {
@@ -178,7 +188,7 @@ exports.activeDisableServices = async (req, res) => {
                     // disabledServices: 1 // Keep the active services
                 }
             }
-        ]);
+        ]).sort('serviceID');
 
 
         // console.log(disabledServices);

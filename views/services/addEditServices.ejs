@@ -1,4 +1,4 @@
-<div class="addEditServicesContainer">
+<div class="addEditServicesContainer1">
     <h1>Service Prices</h1>
 
     <!-- Form to select service and enter prices -->
@@ -10,7 +10,7 @@
                 <option value="<%= service.serviceID %>">
                     <%= service.serviceName %>
                 </option>
-                <% }) %>
+            <% }) %>
         </select>
 
         <div id="priceInputs">
@@ -30,7 +30,8 @@
 
         <button class="savePriceButton" type="submit">Save Prices</button>
     </form>
-
+</div>
+<div class="addEditServicesContainer2">
     <!-- Table displaying service prices -->
     <h2>Saved Prices</h2>
     <table>

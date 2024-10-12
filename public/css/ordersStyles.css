@@ -1,53 +1,176 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Container */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+/* .sidebar {
+    width: 250px;
+    background-color: #2c3e50;
     padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-h1 {
+.sidebar h2 {
     text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #34495e;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+.sidebar ul li:hover {
+    background-color: #1abc9c;
+} */
+
+/* Main Content Styling */
+.main-content {
+    flex-grow: 1;
+    padding: 25px;
+    /* background-color: #ecf0f1; */
+    background-color: #2c3e50;
+    overflow-y: auto;
+}
+
+.main-content .content-page {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Order Processing Header */
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #2c3e50;
+}
+
+/* Filters Section */
+#upFilters, #filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#upFilters label, #filters label {
+    color: #2c3e50;
+}
+
+/* Inputs and Select Boxes */
+input[type="text"],
+input[type="date"],
+select {
+    padding: 7px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 170px;
+}
+
+
+/* Search, Cancel / Refresh Button */
+#searchBtn, #clrBtn {
+    padding: 10px 15px;
+    margin-left: 5px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Orders Table Styling (to be added dynamically) */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin-top: 20px;
 }
 
 th, td {
-    border: 1px solid #808080;
+    padding: 12px;
     text-align: left;
-    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    /* border: 1px solid #cbcbcb; */
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+}
+
+td {
+    background-color: #ecf0f1;
 }
 
 tr {
     transition: background-color 0.3s ease;
 }
 
-th {
-    background-color: #f2f2f2;
+/* Blinking Animation */
+.blink {
+    animation: blink-animation 2s infinite alternate; /* Alternate between states */
 }
 
+@keyframes blink-animation {
+    0% {
+        background-color: #ecf0f1; /* Initial background color */
+    }
+    100% {
+        background-color: rgb(235, 235, 176); /* Change to yellow */
+    }
+}
+
+
+/* Buttons in Table */
 button {
-    padding: 6px 12px;
-    margin: 2px;
+    padding: 8px 12px;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 10%;
 }
 
 .process-btn {
     background-color: #008CBA;
     color: white;
-    border: none;
 }
 
 .done-btn {
     background-color: #4CAF50;
     color: white;
-    border: none;
 }
 
 .cancel-btn {
     background-color: #f44336;
     color: white;
-    border: none;
 }

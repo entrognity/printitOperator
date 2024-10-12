@@ -2,7 +2,8 @@
 const { MongoClient } = require('mongodb');
 
 // Replace with your MongoDB connection string
-const uri = 'mongodb://localhost:27017'; // For local MongoDB
+// const uri = 'mongodb://localhost:27017'; // For local MongoDB
+const uri = 'mongodb+srv://entrognity:Planet777Earth@cluster0.mwhvd.mongodb.net/printit?retryWrites=true&w=majority&appName=Cluster0';
 const client = new MongoClient(uri);
 
 async function run() {
@@ -12,7 +13,10 @@ async function run() {
 
         // Connect to a specific database and collection
         const database = client.db('printit'); // Replace with your database name
-        const collection = database.collection('servicestrackings'); // Replace with your collection name
+
+        // const collection = database.collection('servicestrackings'); // Replace with your collection name
+        // const collection = database.collection('services');
+        const collection = database.collection('servicesprices');
 
         // Create an array of documents to insert
         // const docs = [
@@ -37,27 +41,27 @@ async function run() {
         //     { serviceID: 15, serviceName: 'SN15', serviceDescription: 'SD15' }
         // ];
 
-        const docs = [
-            { accountID: 'acc1', serviceID: 1, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 2, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 3, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 4, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 5, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 6, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 7, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 8, isOpted: 'yes', isActive: 'yes' },
-            { accountID: 'acc1', serviceID: 9, isOpted: 'yes', isActive: 'no' },
-            { accountID: 'acc1', serviceID: 10, isOpted: 'yes', isActive: 'no' },
-            { accountID: 'acc1', serviceID: 11, isOpted: 'yes', isActive: 'no' },
-            { accountID: 'acc1', serviceID: 12, isOpted: 'yes', isActive: 'no' },
-            { accountID: 'acc1', serviceID: 13, isOpted: 'yes', isActive: 'no' },
-            { accountID: 'acc1', serviceID: 14, isOpted: 'yes', isActive: 'no' },
-            { accountID: 'acc1', serviceID: 15, isOpted: 'yes', isActive: 'no' }
-        ];
-
         // const docs = [
-        //     { accountID: 'acc1', individualBWPerPage: 2, individualColorPerPage: 5, spiralBinding: 50 }
+        //     { accountID: 'acc1', serviceID: 1, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 2, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 3, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 4, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 5, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 6, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 7, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 8, isOpted: 'yes', isActive: 'yes' },
+        //     { accountID: 'acc1', serviceID: 9, isOpted: 'yes', isActive: 'no' },
+        //     { accountID: 'acc1', serviceID: 10, isOpted: 'yes', isActive: 'no' },
+        //     { accountID: 'acc1', serviceID: 11, isOpted: 'yes', isActive: 'no' },
+        //     { accountID: 'acc1', serviceID: 12, isOpted: 'yes', isActive: 'no' },
+        //     { accountID: 'acc1', serviceID: 13, isOpted: 'yes', isActive: 'no' },
+        //     { accountID: 'acc1', serviceID: 14, isOpted: 'yes', isActive: 'no' },
+        //     { accountID: 'acc1', serviceID: 15, isOpted: 'yes', isActive: 'no' }
         // ];
+
+        const docs = [
+            { accountID: 'acc1', individualBWPerPage: 2, individualColorPerPage: 5, spiralBinding: 50 }
+        ];
 
         // Insert the documents
         const result = await collection.insertMany(docs);

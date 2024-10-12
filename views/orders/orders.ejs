@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +8,69 @@
     <link rel="stylesheet" href="/css/ordersStyles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    <h1>Order Processing</h1>
-    <input id="orderID" placeholder="Enter order ID" />
-    <table id="ordersTable">
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Service</th>
-                <th>Total Pages</th>
-                <th>Files</th>
-                <th>Note</th>
-                <th>Call Before print</th>
-                <th>Received Amount / Total Amount </th>
-                <th>Process</th>
-                <th>Done</th>
-                <th>Cancel</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% allOrders.forEach(order => { %>
-                <tr>
-                    <td><%= order.orderID %></td>
-                    <td><%= order.serviceName %></td>
-                    <td><%= order.pages %></td>
-                    <td><%= order.filesUri %></td>
-                    <td><%= order.note %></td>
-                    <td><%= order.callBeforePrint %></td>
-                    <td><%= order.orderAmount/2 %> / <%= order.orderAmount %> </td>
-                    <td><button class="process-btn" onclick="processOrder('<%= order.OrderId %>')">Process</button></td>
-                    <td><button class="done-btn" onclick="markDone('<%= order.OrderId %>')">Done</button></td>
-                    <td><button class="cancel-btn" onclick="cancelOrder('<%= order.OrderId %>')">Cancel</button></td>
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
-    
+    <div class="container">
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-page">
+                <h1>Order Processing</h1>
+
+                <!-- Filters -->
+                <div id="upFilters">
+                    <label for="orderID">Enter Order ID:</label>
+                    <input type="text" id="orderID" placeholder="Enter order ID" />
+
+                    <label for="service">Select a Service:</label>
+                    <select name="serviceId" id="serviceIDInp">
+                        <option value="">--Select Service--</option>
+                        <% services.forEach(service=> { %>
+                            <option value="<%= service.serviceID %>">
+                                <%= service.serviceName %>
+                            </option>
+                            <% }) %>
+                    </select>            
+                </div>
+
+                <!-- Additional Filters -->
+                <div id="filters">
+                    <label for="fromDate">From Date:</label>
+                    <input type="date" id="fromDate" name="fromDate">
+
+                    <label for="toDate">To Date:</label>
+                    <input type="date" id="toDate" name="toDate">
+
+                    <label for="sortBy">Sort By:</label>
+                    <select id="sortBy" name="sortBy">
+                        <option value="">--Select--</option>
+                        <option value="orderID">Order ID</option>
+                        <option value="orderAmount">Price</option>
+                    </select>
+
+                    <label for="sortOrder">Sort Order:</label>
+                    <select id="sortOrder" name="sortOrder">
+                        <option value="">--Select--</option>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+
+                <!-- Search Button -->
+                <input type="button" id="searchBtn" value="Search">
+
+                <!-- Clear / Refresh Button -->
+                <input type="button" id="clrBtn" value="Clear / Refresh">
+
+                
+
+                <!-- Order Table will be added dynamically below -->
+                <div id="ordersTableContainer"></div>
+
+            </div>
+        </div>
+    </div>
+
     <script src="/scripts/ordersScript.js"></script>
 </body>
+
 </html>

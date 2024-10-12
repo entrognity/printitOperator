@@ -52,7 +52,7 @@ body {
 /* Main content styling */
 .main-content {
     flex-grow: 1;
-    padding: 40px;
+    padding: 25px;
     background-color: #ecf0f1;
 }
 
@@ -79,6 +79,13 @@ p {
 .allServicesContainer {
     max-height: 650px; /* Adjust this value to limit the visible rows */
     overflow-y: auto;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -87,27 +94,21 @@ table {
     margin-top: 20px;
 }
 
-table,
-th,
-td {
-    border: 1px solid #ddd;
-    word-wrap: break-word;
-}
-
-th,
-td {
+th, td {
     padding: 12px;
     text-align: left;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid #cbcbcb;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #34495e;
+    color: white;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+td {
+    background-color: #ecf0f1;
 }
-
 
 /* for activeDisableServices.ejs  or  buttons */
 
@@ -198,9 +199,20 @@ button:disabled:hover {
 
 /* addEditServices */
 
-.addEditServicesContainer {
+.addEditServicesContainer1 {
     width: 100%;
-    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.addEditServicesContainer2 {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
@@ -209,10 +221,20 @@ button:disabled:hover {
 
 select {
     margin-bottom: 20px;
+    padding: 7px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 170px;
 }
 
-label, input {
+input[type="number"] {
     margin-bottom: 10px;
+    padding: 7px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 170px;
 }
 
 .savePriceButton {
