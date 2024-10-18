@@ -1,9 +1,12 @@
 const Orders = require('../models/ordersModel');
 const { Services } = require('../models/servicesModel');
+const { Users } = require('../models/userModel');
+const idGeneration = require('../utils/idGeneration');
 
 
 exports.getOrders = async (req, res) => {
     try {
+        // get services to populate the select service dropdown in filter
         const services = await Services.find().sort('serviceID');
         res.render('orders/orders', { services });
     } catch (err) {
@@ -17,8 +20,16 @@ exports.getOrders = async (req, res) => {
 
 exports.getOrdersTable = async (req, res) => {
     try {
+
         const queryS = {};
         const sortOptions = {};
+
+        // get operatorID -- CHECK FOR ANY POSSIBILITY or KEEP DOUBLE VALIDATION  
+        // if(req.query.operatorID){
+        //     queryS.operatorID = req.query.operatorID;
+        // }else{
+        //     return res.status(400).json({ error: 'Operator ID Not Found' });
+        // }
 
         // Handle orderID filtering
         if(req.query.orderID){
@@ -134,9 +145,124 @@ exports.getOrder = async (req, res) => {
     }
 };
 
+exports.getOrderDetailPopup = async (req, res) => {
+    try{
+        // get the orderID
+        const orderID = req.params.id;
+
+        // Aggregation with $lookup and $match for filtering
+        const orderDetail = await Orders.aggregate([
+            { $match: {orderID: orderID} },
+            {
+                $lookup: {
+                    from: 'services',
+                    localField: 'serviceID',
+                    foreignField: 'serviceID',
+                    as: 'serviceDetails'
+                }
+            },
+            { $unwind: '$serviceDetails' },
+            {
+                $project: {
+                    _id: 1,
+                    userID: 1,
+                    operatorID: 1,
+                    orderID: 1,
+                    serviceID: 1,
+                    serviceName: '$serviceDetails.serviceName',
+                    filesUri: 1,
+                    pages: 1,
+                    note: 1,
+                    callBeforePrint: 1,
+                    orderAmount: 1,
+                    paymentStatus: 1,
+                    orderStatus: 1,
+                    createdAt: 1,
+                    updatedAt: 1
+                }
+            }
+        ]);
+
+        // Check if orderDetail exists
+        if (!orderDetail || orderDetail.length === 0) {
+            return res.status(404).json({
+                status: 'failed',
+                message: 'Order not found'
+            });
+        }
+
+        // Get the userID from the orderDetail
+        const userID = orderDetail[0].userID;
+        // Get the customer name
+        const customer = await Users.findOne({ userMobNumber: userID }).select('userName');
+        // Add customerName to orderDetail
+        orderDetail[0].customerName = customer ? customer.userName : null;
+
+        // render the popup
+        res.render('orders/orderDetailPopup.ejs', { orderDetail });
+
+        // Respond with order details
+        // res.status(200).json({
+        //     status: 'success',
+        //     data: { orderDetail: orderDetail[0] } // Return the first element of the array
+        // });
+
+    } catch(err) {
+        res.status(400).send({
+            tatus: 'failed',
+            message: err
+        });
+    }
+}
+
+exports.updateStatus = async (req, res) => {
+    try{
+        const {orderID, status} = req.body;
+        const updateStatus = await Orders.findOneAndUpdate(
+            {orderID: orderID}, 
+            {$set: {orderStatus: status}},
+            {new: true}
+        );
+
+        res.status(200).json({
+            status: 'success',
+            data: { updateStatus }
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'failed',
+            message: err
+        });
+    }
+};
+
+
+// sanitize the data
+
 exports.createOrder = async (req, res) => {
     try {
         const newOrder = await Orders.create(req.body);
+
+        res.status(201).json({
+            status: 'success',
+            data: {
+                order: newOrder
+            }
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'failed',
+            message: err
+        });
+    }
+};
+
+
+// only for dev, del while deploying
+
+exports.createOrders = async (req, res) => {
+    try {
+        const newOrder = await Orders.insertMany(req.body);
 
         res.status(201).json({
             status: 'success',

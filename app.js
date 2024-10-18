@@ -2,7 +2,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const ordersRoutes = require('./routes/ordersRoutes');
-const servicesRoutes = require('./routes/servicesRoutes')
+const servicesRoutes = require('./routes/servicesRoutes');
+const filesRoutes = require('./routes/filesRoutes');
 const bodyParser = require('body-parser');
 
 
@@ -18,7 +19,7 @@ app.set('views', `${__dirname}/views`); // Set the directory where EJS files are
 // Application routes
 app.use('/api/v1/orders', ordersRoutes);
 app.use('/api/v1/services', servicesRoutes);
-
+app.use('/api/v1/files', filesRoutes);
 
 
 // exports

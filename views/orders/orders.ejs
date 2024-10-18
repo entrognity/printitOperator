@@ -29,7 +29,7 @@
                                 <%= service.serviceName %>
                             </option>
                             <% }) %>
-                    </select>            
+                    </select>
                 </div>
 
                 <!-- Additional Filters -->
@@ -61,7 +61,15 @@
                 <!-- Clear / Refresh Button -->
                 <input type="button" id="clrBtn" value="Clear / Refresh">
 
-                
+
+                <!-- order detail popup modal -->
+                <div id="orderDetailModal" class="modal">
+                    <div class="modal-content">
+                        <span class="closeSym" onclick="closeModal()">×</span>
+                        <div id="orderDetails"></div>
+                    </div>
+                </div>
+
 
                 <!-- Order Table will be added dynamically below -->
                 <div id="ordersTableContainer"></div>

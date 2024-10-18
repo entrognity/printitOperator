@@ -47,3 +47,8 @@ function loadScriptDynamically(scriptName) {
     script.onerror = () => console.error(`Failed to load ${scriptName}`);
     document.body.appendChild(script);  // Append the script to the body
 }
+
+
+
+
+

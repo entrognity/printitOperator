@@ -1,80 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Process</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
 
-h1 {
-    text-align: center;
-}
+    .orderDetailPopupcontainer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Optional, to add space between order info and customer info */
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
+    .orderInfo1, .orderInfo2 {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        flex: 1; /* Make both divs take equal space */
+    }
 
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
+    .PopupClose {
+        display: inline-block;
+        padding: 10px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        cursor: pointer;
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        font-size: 20px;
+    }
 
-th {
-    background-color: #f2f2f2;
-}
+    .PopupClose:hover {
+        background-color: #c0392b;
+    }
+</style>
 
-button {
-    padding: 6px 12px;
-    margin: 2px;
-    cursor: pointer;
-}
+<h3>Order Details</h3>
 
-.process-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-}
+<div class="orderDetailPopupcontainer">
+    <!-- Order Information -->
+    <div class="orderInfo1">
+        <p><strong>Order ID:</strong> <%= order.orderId %></p>
+        <p><strong>Order Placed on:</strong> <%= order.orderId %></p>
+        <p><strong>Note:</strong> <%= order.total %></p>
+        <p><strong>Call Before Print:</strong> <%= order.total %></p>
+        <p><strong>Customer Name:</strong> <%= order.orderId %></p>
+        <p><strong>Customer Contact:</strong> <%= order.customer %></p>
+        <p><strong>Order Status:</strong> <%= order.total %></p>
+        <p><strong>Order Amount:</strong> <%= order.total %></p>
+        <p><strong>Payment Received:</strong> <%= order.total %></p>
+        <p><strong>Delivery Option:</strong> <%= order.total %></p>
+    </div>
 
-.done-btn {
-    background-color: #008CBA;
-    color: white;
-    border: none;
-}
+    <!-- Customer Information -->
+    <div class="orderInfo2">
+        <p><strong>Service Name:</strong> <%= order.customer %></p>
+        <p><strong>Total Pages:</strong> <%= order.total %></p>
+        <p><strong>Files:</strong> <%= order.date.toDateString() %></p>
+        
+    </div>
+</div>
 
-.cancel-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-}
-
-    </style>
-</head>
-<body>
-    <h1>Order Processing</h1>
-    <table id="ordersTable">
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Order Description</th>
-                <th>Number of Pages</th>
-                <th>Process</th>
-                <th>Done</th>
-                <th>Cancel</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be dynamically added here -->
-        </tbody>
-    </table>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<button class="PopupClose" onclick="window.close()">× Close</button>

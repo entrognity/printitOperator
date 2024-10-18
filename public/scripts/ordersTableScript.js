@@ -1,35 +1,51 @@
 
 // Event delegation for dynamic rows
-$('#ordersTable').on('click', '.process-btn', function () {
+// Handle the 'Process' button click
+$('#ordersTable').on('click', '.processBtn', function () {
+
+    // call before print, did you call
+
     let orderID = $(this).data('id');
-    processOrder(orderID);
-    $(this).closest('tr').find('td').css('background-color', '#88beff');
+    if (confirm(`Processing order with ID ${orderID}`)) {
+        updateStatus(orderID, 'processing');
+
+        // Update the background color and stop blinking
+        $(this).closest('tr').find('td').removeClass('blink');
+        $(this).closest('tr').find('td').css('background-color', '#88beff'); // Light blue for processing
+
+        // Show/Hide the appropriate buttons
+        $(this).hide(); // Hide 'Process' button
+        $(this).siblings('.rejectedBtn').hide(); // Hide 'Reject' button
+        $(this).siblings('.completedBtn').show(); // Show 'Complete' button
+    }
 });
 
-$('#ordersTable').on('click', '.done-btn', function () {
+// Handle the 'Complete' button click
+$('#ordersTable').on('click', '.completedBtn', function () {
     let orderID = $(this).data('id');
-    $(this).closest('tr').find('td').css('background-color', '#9fff88');
-    markDone(orderID);
+    if (confirm(`Marking order with ID ${orderID} as done`)) {
+        updateStatus(orderID, 'completed');
+
+        // Update the background color to green for completed
+        $(this).closest('tr').find('td').css('background-color', '#9fff88'); // Light green for completed
+        // Show/Hide the appropriate buttons
+        $(this).hide(); // Hide 'Complete' button
+    }
 });
 
-$('#ordersTable').on('click', '.cancel-btn', function () {
+// Handle the 'Reject' button click
+$('#ordersTable').on('click', '.rejectedBtn', function () {
     let orderID = $(this).data('id');
-    $(this).closest('tr').find('td').css('background-color', '#ff9d88');
-    cancelOrder(orderID);
+    if (confirm(`Cancelling order with ID ${orderID}`)) {
+        updateStatus(orderID, 'rejected');
+
+        // Update the background color to red for rejected and stop blinking
+        $(this).closest('tr').find('td').removeClass('blink');
+        $(this).closest('tr').find('td').css('background-color', '#ff9d88'); // Light red for rejected
+
+        // Hide all buttons after rejection
+        $(this).hide(); // Hide 'Reject' button
+        $(this).siblings('.processBtn, .completedBtn').hide(); // Hide 'Process' and 'Complete' buttons
+    }
 });
-
-function processOrder(orderId) {
-    confirm(`Processing order with ID ${orderId}`);
-    // Further processing logic can be implemented here
-}
-
-function markDone(orderId) {
-    confirm(`Marking order with ID ${orderId} as done`);
-    // Further done logic can be implemented here
-}
-
-function cancelOrder(orderId) {
-    confirm(`Cancelling order with ID ${orderId}`);
-    // Further cancel logic can be implemented here
-}
 

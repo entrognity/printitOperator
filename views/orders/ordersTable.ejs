@@ -15,7 +15,7 @@
         <% allOrders.forEach(order=> { %>
             <tr data-order-status="<%= order.orderStatus %>">
                 <td>
-                    <%= order.orderID %>
+                    <button type="button" class="link-button" onclick="showOrderDetail('<%= order.orderID %>')"> <%= order.orderID %> </button>
                 </td>
                 <td>
                     <%= order.serviceName %>
@@ -36,9 +36,9 @@
                     <%= order.orderAmount %>
                 </td>
                 <td>
-                    <button class="process-btn" data-id="<%= order.orderID %>">Process</button>
-                    <button class="done-btn" data-id="<%= order.orderID %>">Done</button>
-                    <button class="cancel-btn" data-id="<%= order.orderID %>">Cancel</button>
+                    <button class="processBtn" data-id="<%= order.orderID %>">Process</button>
+                    <button class="completedBtn" data-id="<%= order.orderID %>">Done</button>
+                    <button class="rejectedBtn" data-id="<%= order.orderID %>">Cancel</button>
                 </td>
             </tr>
             <% }) %>

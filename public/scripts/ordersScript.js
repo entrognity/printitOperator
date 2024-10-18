@@ -165,8 +165,6 @@ $(document).ready(function() {
 async function init() {
     try {
         await loadPage('ordersTable');
-        await loadDynamicScript('ordersTableScript.js');
-        colorRows();
     } catch (error) {
         console.error('Error during initialization:', error);
     }
@@ -181,6 +179,12 @@ async function loadPage(pageUrl) {
         }
         const data = await response.text();
         document.getElementById('ordersTableContainer').innerHTML = data;
+
+        // ------------------------------
+        await loadDynamicScript('ordersTableScript.js');
+        colorRows();
+        // ------------------------------
+
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('ordersTableContainer').innerHTML = '<h1>Data not found</h1>';
@@ -205,22 +209,89 @@ function loadDynamicScript(scriptName) {
 const colorRows = () => {
     $('#ordersTable tbody tr').each(function() {
         // Get the orderStatus from the current row
-        const orderStatus = $(this).data('orderStatus'); // Access the data attribute
+        const orderStatus = $(this).data('order-status'); // Access the data attribute
 
         // Change background color based on orderStatus
         if (orderStatus === 'requested') {
             $(this).find('td').addClass('blink'); // Add blink class for requested
+            $(this).find('.processBtn, .rejectedBtn').show();
+            // $(this).find('.rejectedBtn').show();
+            $(this).find('.completedBtn').hide();
         } else if (orderStatus === 'processing') {
             $(this).closest('tr').find('td').css('background-color', '#88beff'); // Light blue for processing
+            $(this).find('.completedBtn').show();
+            $(this).find('.processBtn, .rejectedBtn').hide();
         } else if (orderStatus === 'completed') {
             $(this).find('td').css('background-color', '#9fff88'); // Light green for completed
+            $(this).find('.processBtn, .completedBtn, .rejectedBtn').hide();
         } else if (orderStatus === 'rejected') {
             $(this).closest('tr').find('td').css('background-color', '#ff9d88'); // Light red for rejected
+            $(this).find('.processBtn, .completedBtn, .rejectedBtn').hide();
         } else {
             $(this).closest('tr').find('td').css('background-color', ''); // Reset to default if status is unknown
         }
     });
 };
+
+
+
+
+
+// Function to open the order detail Popup 
+function showOrderDetail(orderId) {
+    // Send AJAX request to get order details
+    fetch(`/api/v1/orders/orderDetail/${orderId}`)
+        .then(response => response.text())
+        .then(data => {
+            // Populate modal with order details
+            document.getElementById('orderDetails').innerHTML = data;
+
+            // Show the modal
+            document.getElementById('orderDetailModal').style.display = 'block';
+        })
+        .catch(err => {
+            alert('Error fetching order details');
+            console.error(err);
+        });
+}
+
+// async function showOrderDetail(orderID) {
+//     try {
+//         const response = await fetch(`/api/v1/orders/orderDetail/${orderID}`);
+//         if (!response.ok) {
+//             throw new Error('Failed to load page content');
+//         }
+//         const data = await response.text();
+
+//         // Populate modal with order details
+//         document.getElementById('orderDetails').innerHTML = data;
+
+//         // Show the modal
+//         document.getElementById('orderModal').style.display = 'block';
+
+//     } catch (error) {
+//         alert('Error fetching order details');
+//         console.error(err);
+//     }
+// }
+
+// Close the modal
+function closeModal() {
+    document.getElementById('orderDetailModal').style.display = 'none';
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('orderDetailModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+}
+
+
+
+
+
 
 // Function to handle search and filter
 async function filterOrders() {
@@ -273,5 +344,30 @@ async function filterOrders() {
         colorRows();
     } catch (error) {
         console.error('Error during filtering:', error);
+    }
+}
+
+
+const updateStatus = async (orderId, status) => {
+    const data = {};
+    data.orderID = orderId;
+    data.status = status;
+    try {
+        const response = await fetch('/api/v1/orders/ordersTable/updateStatus', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json', // Specify JSON content
+            },
+            body: JSON.stringify(data) // Convert prices object to JSON string
+        });
+
+        if (response.ok) {
+            loadPage('ordersTable');
+        } else {
+            alert('Failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while updating.');
     }
 }

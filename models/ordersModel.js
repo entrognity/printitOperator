@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const ordersSchema = new mongoose.Schema({
+    userID: {
+        type: String,
+        required: true
+    },
+    operatorID: {
+        type: String,
+        required: true
+    },
     orderID: {
         type: String,
         required: true,
@@ -41,6 +49,11 @@ const ordersSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ['pending', 'completed', 'failed']
+    },
+    paymentReceived: {
+        type: String,
+        required: true,
+        enum: ['yes', 'no']
     },
     orderStatus: {
         type: String,
