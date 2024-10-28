@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ordersSchema = new mongoose.Schema({
+const OrdersSchema = new mongoose.Schema({
     userID: {
         type: String,
         required: true
@@ -14,32 +14,24 @@ const ordersSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    serviceID: {
-        type: Number,
+    articleIDs: {
+        type: [String],
         required: true,
-        min: [1, 'service Id should be greater than 1']
+        unique: true
     },
-    filesUri: {
-        type: [String],  // Assuming this is an array of file URIs
-        required: true
-    },
-    pages: {
+    noOfServices: {
         type: Number,
-        required: true
-    },
-    note: {
-        type: String,
         required: true
     },
     callBeforePrint: {
-        type: Boolean,
+        type: String,
         required: true,
-        enum: [true, false]
+        enum: ["Yes", "No"]
     },
     deliveryOption: {
         type: String,
         required: true,
-        enum: ['self', '3rd-party']  // Add delivery options as per requirement
+        enum: ['Self', '3rdParty']  // Add delivery options as per requirement
     },
     orderAmount: {
         type: Number,
@@ -50,11 +42,6 @@ const ordersSchema = new mongoose.Schema({
         required: true,
         enum: ['pending', 'completed', 'failed']
     },
-    paymentReceived: {
-        type: String,
-        required: true,
-        enum: ['yes', 'no']
-    },
     orderStatus: {
         type: String,
         required: true,
@@ -64,6 +51,66 @@ const ordersSchema = new mongoose.Schema({
     timestamps: true  // Automatically add createdAt and updatedAt fields
 });
 
-const Orders = mongoose.model('Orders', ordersSchema);
+const Orders = mongoose.model('Orders', OrdersSchema);
 
-module.exports = Orders;
+
+
+const OrderArticlesSchema = new mongoose.Schema({
+    articleID: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    serviceID: {
+        type: Number,
+        required: true,
+    },
+    filesUri: {
+        type: [String],  // Assuming this is an array of file URIs
+        required: true
+    },
+    noOfPages: {
+        type: Number,
+        required: true
+    },
+    noOfCopies: {
+        type: Number,
+        required: true
+    },
+    printColor: {
+        type: String,
+        required: true,
+        enum: ['BW', 'AllColor', 'BWandColorMix']
+    },
+    bwPageNos: {      // remove this, write logic (total - color)
+        type: [Number]
+    },
+    colorPagesNos: {
+        type: [Number]
+    },
+    printSides: {
+        type: String,
+        required: true,
+        enum: ['SingleSide', 'BothSides']
+    },
+    note: {
+        type: String,
+        required: true
+    },
+    articleAmount: {
+        type: Number,
+        required: true
+    }
+}, {
+    discriminatorKey: 'articleType',
+    timestamps: true  // Automatically add createdAt and updatedAt fields
+});
+
+const OrderArticles = mongoose.model('OrderArticles', OrderArticlesSchema);
+
+
+
+module.exports = {
+    Orders,
+    OrderArticles
+};

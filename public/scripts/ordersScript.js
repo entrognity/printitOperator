@@ -205,6 +205,11 @@ function loadDynamicScript(scriptName) {
     });
 }
 
+
+
+
+
+
 // Function to color the rows based on order status
 const colorRows = () => {
     $('#ordersTable tbody tr').each(function() {
@@ -232,7 +237,6 @@ const colorRows = () => {
         }
     });
 };
-
 
 
 
@@ -297,6 +301,7 @@ window.onclick = function(event) {
 async function filterOrders() {
     const orderIDInp = document.getElementById('orderID').value.trim();
     const serviceIDInp = document.getElementById('serviceIDInp').value;
+    const orderStatusInp = document.getElementById('orderStatusInp').value;
     const fromDate = document.getElementById('fromDate').value;
     const toDate = document.getElementById('toDate').value;
     const sortBy = document.getElementById('sortBy').value;
@@ -319,6 +324,9 @@ async function filterOrders() {
     if (serviceIDInp) {
         queryString += `serviceID=${serviceIDInp}&`;
     }
+    if (orderStatusInp) {
+        queryString += `orderStatus=${orderStatusInp}&`;
+    }
     if (fromDate) {
         queryString += `fromDate=${fromDate}&`;
     }
@@ -332,7 +340,7 @@ async function filterOrders() {
         queryString += `sortOrder=${sortOrder}`;
     }
 
-    console.log(queryString);
+    // console.log(queryString);
     if (queryString === '?') {
         return window.location.href = '/api/v1/orders';
     }
@@ -362,9 +370,9 @@ const updateStatus = async (orderId, status) => {
         });
 
         if (response.ok) {
-            loadPage('ordersTable');
+            // loadPage('ordersTable');
         } else {
-            alert('Failed');
+            alert('Failed to update the order status');
         }
     } catch (error) {
         console.error('Error:', error);

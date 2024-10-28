@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/authStyles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="main-content-login">
+        <form id="loginForm">
+            <!-- Operator Details -->
+            <div class="loginDetDiv">
+                <h2>Login</h2>
+
+                <!-- Email -->
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+
+                <!-- Password -->
+                <label for="password">Password *</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit">Log In</button>
+            <p><a href="/api/v1/auth/forgotPassword" class="forgot-password">Forgot Password?</a></p>
+        </form>
+    </div>
+    <script src="/scripts/auth/loginScript.js"></script>
+</body>
+
+</html>

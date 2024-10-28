@@ -79,7 +79,7 @@ exports.updatePrices = async (req, res) => {
         const { accountID, ...updateFields } = prices; // Destructure to exclude accountID
 
         // Update records based on accountID
-        const result = await ServicesPrices.updateMany(
+        const result = await ServicesPrices.updateOne(
             { accountID: accountID },
             { $set: updateFields } // Use updateFields for updating only relevant fields
         );

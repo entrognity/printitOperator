@@ -2,46 +2,52 @@
     <thead>
         <tr>
             <th>Order ID</th>
-            <th>Service</th>
-            <th>Total Pages</th>
+            <th>Services</th>
             <th>Files</th>
+            <th>No of Pages</th>
+            <th>No of Copies</th>
+            <th>Print Color</th>
+            <th>Print Sides</th>
             <th>Note</th>
-            <th>Call Before print</th>
-            <th>Order Amount </th>
+            <th>Call Before Print</th>
+            <th>Order Amount</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <% allOrders.forEach(order=> { %>
-            <tr data-order-status="<%= order.orderStatus %>">
-                <td>
-                    <button type="button" class="link-button" onclick="showOrderDetail('<%= order.orderID %>')"> <%= order.orderID %> </button>
-                </td>
-                <td>
-                    <%= order.serviceName %>
-                </td>
-                <td>
-                    <%= order.pages %>
-                </td>
-                <td>
-                    <%= order.filesUri %>
-                </td>
-                <td>
-                    <%= order.note %>
-                </td>
-                <td>
-                    <%= order.callBeforePrint %>
-                </td>
-                <td>
-                    <%= order.orderAmount %>
-                </td>
-                <td>
-                    <button class="processBtn" data-id="<%= order.orderID %>">Process</button>
-                    <button class="completedBtn" data-id="<%= order.orderID %>">Done</button>
-                    <button class="rejectedBtn" data-id="<%= order.orderID %>">Cancel</button>
-                </td>
-            </tr>
-            <% }) %>
+        <% allOrders.forEach(order => { %>
+            <% order.articles.forEach((article, index) => { %>
+                <tr class="article-row" data-order-status="<%= order.orderStatus %>">
+                    <% if (index === 0) { %>
+                        <!-- First row of each order gets the order ID and spans -->
+                        <td rowspan="<%= order.articles.length %>">
+                            <button type="button" class="link-button" onclick="showOrderDetail('<%= order.orderID %>')"> <%= order.orderID %> </button>
+                        </td>
+                    <% } %>
+                    <td><%= article.serviceName %></td>
+                    <td>
+                        <% article.filesUri.forEach((file, fileIndex) => { %>
+                            <a class="filesUri" href="<%= file %>" target="_blank">File <%= fileIndex + 1 %></a>
+                        <% }) %>
+                    </td>
+                    <td><%= article.noOfPages %></td>
+                    <td><%= article.noOfCopies %></td>
+                    <td><%= article.printColor %></td>
+                    <td><%= article.printSides %></td>
+                    <td><%= article.note %></td>
+                    <% if (index === 0) { %>
+                        <!-- These cells also span all rows for this order -->
+                        <td rowspan="<%= order.articles.length %>"><%= order.callBeforePrint %></td>
+                        <td rowspan="<%= order.articles.length %>"><%= order.orderAmount %></td>
+                        <td rowspan="<%= order.articles.length %>">
+                            <button class="processBtn" data-id="<%= order.orderID %>" data-cbp="<%= order.callBeforePrint %>">Process</button>
+                            <button class="completedBtn" data-id="<%= order.orderID %>" data-cbp="<%= order.callBeforePrint %>">Done</button>
+                            <button class="rejectedBtn" data-id="<%= order.orderID %>" data-cbp="<%= order.callBeforePrint %>">Cancel</button>
+                        </td>
+                    <% } %>
+                </tr>
+            <% }); %>
+        <% }); %>
     </tbody>
 </table>
 

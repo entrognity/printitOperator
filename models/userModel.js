@@ -49,6 +49,7 @@ const usersAddressSchema = new mongoose.Schema({
     },
     userGmapUrl: {
         type: String,
+        required: true
     }
 });
 

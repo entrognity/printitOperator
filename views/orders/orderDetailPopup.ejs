@@ -2,29 +2,72 @@
 
 <div class="orderDetailPopupcontainer">
     <!-- Order Information -->
+    <div class="orderInfo1">
+        <% orderDetail.forEach(order=> { %>
+            <p><strong>Order ID:</strong>
+                <%= order.orderID %>
+            </p>
+            <p><strong>Order Placed on:</strong>
+                <%= order.createdAt.toDateString() %>
+            </p>
+            <p><strong>Total Services in the order:</strong>
+                <%= order.noOfServices %>
+            </p>
+            <p><strong>Call Before Print:</strong>
+                <%= order.callBeforePrint %>
+            </p>
+            <p><strong>Customer Name:</strong>
+                <%= order.customerName %>
+            </p>
+            <p><strong>Customer Contact:</strong>
+                <%= order.userID %>
+            </p>
+            <p><strong>Order Status:</strong>
+                <%= order.orderStatus %>
+            </p>
+            <p><strong>Delivery Option:</strong>
+                <%= order.deliveryOption %>
+            </p>
+            <p><strong>Order Amount:</strong>
+                <%= order.orderAmount %>
+            </p>
+            <p><strong>Payment Status:</strong>
+                <%= order.paymentStatus %>
+            </p>
+            <% }); %>
+    </div>
+
 
     <% orderDetail.forEach(order=> { %>
-    <div class="orderInfo1">
-        <p><strong>Order ID:</strong> <%= order.orderID %></p>
-        <p><strong>Order Placed on:</strong> <%= order.createdAt.toDateString() %></p>
-        <p><strong>Note:</strong> <%= order.note %></p>
-        <p><strong>Call Before Print:</strong> <%= order.callBeforePrint %></p>
-        <p><strong>Customer Name:</strong> <%= order.orderId %></p>
-        <p><strong>Customer Contact:</strong> <%= order.userID %></p>
-        <p><strong>Order Status:</strong> <%= order.orderStatus %></p>
-        <p><strong>Order Amount:</strong> <%= order.orderAmount %></p>
-        <p><strong>Payment Received:</strong> <%= order.paymentReceived %></p>
-        <p><strong>Delivery Option:</strong> <%= order.deliveryOption %></p>
-    </div>
+    <% order.articles.forEach(function(article) { %>
+        <div class="orderInfo2">
+            <!-- Common attributes (shared by all articles) -->
+            <p><strong>Service Name:</strong> <%= article.serviceName %></p>
+            <p><strong>Files:</strong> <%= article.filesUri.join(', ') %></p>
+            <p><strong>No of Pages:</strong> <%= article.noOfPages %></p>
+            <p><strong>No of Copies:</strong> <%= article.noOfCopies %></p>
+            <p><strong>Print Color:</strong> <%= article.printColor %></p>
+            <% if(article.printColor == 'BWandColorMix') { %>
+                <p><strong>Color Pages Nos:</strong> <%= article.colorPagesNos.join(', ') %></p>
+            <% } %>
+            <p><strong>Print Sides:</strong> <%= article.printSides %></p>
 
-    <!-- Customer Information -->
-    <div class="orderInfo2">
-        <p><strong>Service ID:</strong> <%= order.serviceID %></p>
-        <p><strong>Service Name:</strong> <%= order.pages %></p>
-        <p><strong>Total Pages:</strong> <%= order.pages %></p>
-        <p><strong>Files:</strong> <%= order.filesUri %></p>
-    </div>
-    <% }) %>
+            <!-- Specific attributes based on the articleType -->
+            <% if (article.articleType === 'ProjthesBindingUsrs') { %>
+                <p><strong>Paper GSM:</strong> <%= article.paperGSM %></p>
+            <% } else if (article.articleType === 'spiralBindingUsrs') { %>
+                <p><strong>Outer Cover Color:</strong> <%= article.outerCoverColor %></p>
+            <% } else if (article.articleType === 'thermalBindingUsrs') { %>
+                <p><strong>Outer Cover Color:</strong> <%= article.outerCoverColor %></p>
+            <% } else if (article.articleType === 'pinThePapersUsrs') { %>
+                <p><strong>Pinning Type:</strong> <%= article.pinningType %></p>
+            <% } %>
+
+            <p><strong>Note:</strong> <%= article.note %></p>
+            <p><strong>Article Amount:</strong> <%= article.articleAmount %></p>
+        </div>
+    <% }); %>
+    <% }); %>
 </div>
 
 <!-- <button class="PopupClose" onclick="window.close()">× Close</button> -->

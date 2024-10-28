@@ -1,0 +1,34 @@
+<div class="orderInfo1">
+    <% articleDetail.forEach(article=> { %>
+        <p><strong>Service Name:</strong>
+            <%= article.articleID %>
+        </p>
+        <p><strong>Files Links:</strong>
+            <%= article.createdAt.toDateString() %>
+        </p>
+        <p><strong>No of Pages:</strong>
+            <%= article.noOfServices %>
+        </p>
+        <p><strong>No of Copies:</strong>
+            <%= article.callBeforePrint %>
+        </p>
+        <p><strong>Print Color:</strong>
+            <%= article.customerName %>
+        </p>
+        <p><strong>B/W Page Numbers:</strong>
+            <%= article.userID %>
+        </p>
+        <p><strong>Color Pages Number:</strong>
+            <%= article.articleStatus %>
+        </p>
+        <p><strong>Printing Sides:</strong>
+            <%= article.deliveryOption %>
+        </p>
+        <p><strong>Note:</strong>
+            <%= article.articleAmount %>
+        </p>
+        <p><strong>Service Amount:</strong>
+            <%= article.paymentStatus %>
+        </p>
+        <% }); %>
+</div>

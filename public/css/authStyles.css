@@ -1,0 +1,130 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ecf0f1;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main content styling */
+.main-content-signup {
+    /* Set a max-width for the form */
+    max-width: 700px; 
+    margin: 20px auto; /* Centering the form */
+    padding: 25px;
+    background-color: #34495e;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-content-login {
+    /* Set a max-width for the form */
+    max-width: 700px; 
+    margin: 150px auto; /* Centering the form */
+    padding: 25px;
+    background-color: #34495e;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2c3e50; /* Darker heading color */
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure consistent sizing */
+    background-color: #f4f4f4;
+}
+
+input[type="tel"],
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="url"] {
+    width: 100%; /* Full width for all input fields */
+}
+
+input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Section for Operator Details and Shop Details */
+.operatorDetDiv,
+.shopDetDiv,
+.loginDetDiv,
+.resetPasswordDiv,
+.forgotPasswordDiv { 
+    /* width: 100%; */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    font-size: 16px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+
+button:hover {
+    background-color: #026bdb;
+}
+
+.getLocBtn {
+    width: 17%;
+    padding: 2px;
+    background-color: #007a12fe;
+    font-size: 14px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+
+/* Adjust input width for different types of inputs */
+input[type="number"],
+input[type="tel"] {
+    width: 100%; /* Make all inputs consistent */
+}
+
+
+
+.forgot-password {
+    color: #71b4fc;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+    color: red;
+}

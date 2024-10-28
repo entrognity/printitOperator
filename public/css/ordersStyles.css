@@ -121,7 +121,7 @@ table {
 th, td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #888888;
     /* border: 1px solid #cbcbcb; */
 }
 
@@ -138,10 +138,21 @@ tr {
     transition: background-color 0.3s ease;
 }
 
+td:nth-child(2), th:nth-child(2) {
+    width: 150px; 
+    word-wrap: break-word; 
+}
+td:nth-child(11), th:nth-child(11) {
+    width: 175px; 
+    word-wrap: break-word; 
+}
+
+
+
 .link-button {
     background: none;             /* Remove background */
     border: none;                /* Remove border */
-    color: blue;                 /* Link color */
+    color: rgb(0, 0, 198);                 /* Link color */
     text-decoration: underline;   /* Underline text like a link */
     cursor: pointer;             /* Pointer cursor on hover */
     padding: 0;                 /* Remove default padding */
@@ -152,6 +163,20 @@ tr {
 .link-button:hover {
     color: darkblue;            /* Darker blue on hover */
     text-decoration: underline; /* Maintain underline on hover */
+}
+
+.filesUri {
+    display: inline-block;
+    /* margin-bottom: 2px; */
+    padding: 3px;   
+    font-size: 13px;
+    font-weight: 700;                  /* Padding around the text */
+    border: 1px solid #007BFF;        /* Border color */
+    border-radius: 7px;               /* Rounded corners */
+    text-decoration: none;              /* Remove underline */
+    color: blue;                    /* Text color */
+    background-color: #ecf0f1;   /* Light background color */
+    width: fit-content;        
 }
 
 /* Blinking Animation */
@@ -218,7 +243,7 @@ button {
     background-color: #2c3e50;
     margin: 12% auto;
     padding: 20px;
-    width: 50%;
+    width: fit-content;
     border-radius: 10px;
     position: relative;
 }
@@ -238,9 +263,19 @@ button {
     gap: 20px; /* Optional, to add space between order info and customer info */
 }
 
-.orderInfo1, .orderInfo2 {
+.orderInfo1 {
     background-color: #ecf0f1;
     padding: 20px;
+    max-width: 300px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    flex: 1; /* Make both divs take equal space */
+}
+
+.orderInfo2 {
+    background-color: #ecf0f1;
+    padding: 20px;
+    max-width: 300px;
     border-radius: 8px;
     border: 1px solid #ddd;
     flex: 1; /* Make both divs take equal space */
